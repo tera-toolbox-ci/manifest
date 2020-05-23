@@ -1,8 +1,8 @@
 "use strict";
 const fs = require("fs"),
-    path = require("path"),
-    crypto = require("crypto"),
-    { exec } = require("child_process");
+	path = require("path"),
+	crypto = require("crypto"),
+	{ exec } = require("child_process");
 
 const workspacePath = process.env['GITHUB_WORKSPACE'];
 process.chdir(workspacePath);
@@ -56,21 +56,21 @@ files.forEach(filePath => {
 fs.writeFileSync(path.join(workspacePath, "manifest.json"), JSON.stringify(manifest, null, "\t"), "utf8");
 
 exec('git status --porcelain', (err, stdout) => {
-    if (err) {
-        console.error(err.toString());
-        process.exit(err.code || -1);
+	if (err) {
+		console.error(err.toString());
+		process.exit(err.code || -1);
 	}
 	
-    if (stdout.length) {
-        exec(`git add manifest.json && git -c user.name="${process.env['INPUT_USER_NAME']}" -c user.email="${process.env['INPUT_USER_EMAIL']}" -c core.autocrlf=false commit -m "${process.env['INPUT_COMMIT_MESSAGE']}" --author="${process.env['INPUT_COMMIT_AUTHOR']}" && git push`, (err) => {
-            if (err) {
-                console.error(err.toString());
-                process.exit(err.code || -1);
-            } else {
-                console.log("Updated manifest.json successfully.");
-            }
-        });
-    } else {
-        console.log("No changes to manifest.json.");
-    }
+	if (stdout.length) {
+		exec(`git add manifest.json && git -c user.name="${process.env['INPUT_USER_NAME']}" -c user.email="${process.env['INPUT_USER_EMAIL']}" -c core.autocrlf=false commit -m "${process.env['INPUT_COMMIT_MESSAGE']}" --author="${process.env['INPUT_COMMIT_AUTHOR']}" && git push`, (err) => {
+			if (err) {
+				console.error(err.toString());
+				process.exit(err.code || -1);
+			} else {
+				console.log("Updated manifest.json successfully.");
+			}
+		});
+	} else {
+		console.log("No changes to manifest.json.");
+	}
 });

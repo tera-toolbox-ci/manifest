@@ -1,0 +1,30 @@
+name: 'Tera Toolbox CI Manifest'
+description: 'Automatically updates manifest.json with updated hashes.'
+
+author: 'Mkalo <matheus_belo@id.uff.br>'
+
+inputs:
+  commit_message:
+    description: 'Commit message'
+    required: false
+    default: '[CI] Update manifest.json'
+  commit_author:
+    description: 'Commit author'
+    required: false
+    default: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+  user_name:
+    description: 'Commit user name'
+    required: false
+    default: 'tera-toolbox-ci'
+  user_email:
+    description: 'Commit user email'
+    required: false
+    default: '65821121+tera-toolbox-ci@users.noreply.github.com'
+
+runs:
+  using: 'node12'
+  main: 'index.js'
+
+branding:
+  icon: 'settings'
+  color: purple
